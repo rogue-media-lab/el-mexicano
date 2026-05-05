@@ -1,0 +1,60 @@
+<section class="px-6 md:px-12 py-16 md:py-20 bg-[#8B1A1A] min-h-screen">
+  <div class="max-w-lg mx-auto">
+    <p class="text-xs font-medium text-[#C9A96E] uppercase tracking-[0.15em] text-center mb-2">Plan Your Visit</p>
+    <h1 class="text-3xl md:text-4xl font-bold text-[#FAF3E8] text-center mb-4 tracking-tight">Reserve a Table</h1>
+    <p class="text-base text-[#FAF3E8]/60 text-center mb-10">We'll confirm your reservation as soon as possible.</p>
+
+    <div class="bg-[#FAF3E8] rounded-lg p-8">
+      <%= form_with(model: @reservation) do |f| %>
+        <% if @reservation.errors.any? %>
+          <div class="mb-6 p-3 bg-red-50 border border-red-200 rounded-lg">
+            <% @reservation.errors.full_messages.each do |msg| %>
+              <p class="text-sm text-red-700"><%= msg %></p>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="space-y-4">
+          <div>
+            <%= f.label :customer_name, "Your Name", class: "block text-sm font-medium text-[#3D2B1F] mb-1" %>
+            <%= f.text_field :customer_name, class: "w-full border border-[#C9A96E]/40 rounded px-3 py-2.5 bg-white text-[#3D2B1F] focus:ring-2 focus:ring-[#C9A96E] focus:border-[#C9A96E] outline-none text-sm", placeholder: "John Smith" %>
+          </div>
+
+          <div>
+            <%= f.label :phone, "Phone Number", class: "block text-sm font-medium text-[#3D2B1F] mb-1" %>
+            <%= f.telephone_field :phone, class: "w-full border border-[#C9A96E]/40 rounded px-3 py-2.5 bg-white text-[#3D2B1F] focus:ring-2 focus:ring-[#C9A96E] focus:border-[#C9A96E] outline-none text-sm", placeholder: "(803) 555-1234" %>
+          </div>
+
+          <div>
+            <%= f.label :party_size, "Party Size", class: "block text-sm font-medium text-[#3D2B1F] mb-1" %>
+            <%= f.select :party_size, options_for_select(1..12), {}, class: "w-full border border-[#C9A96E]/40 rounded px-3 py-2.5 bg-white text-[#3D2B1F] focus:ring-2 focus:ring-[#C9A96E] focus:border-[#C9A96E] outline-none text-sm" %>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <%= f.label :reservation_date, "Date", class: "block text-sm font-medium text-[#3D2B1F] mb-1" %>
+              <%= f.date_field :reservation_date, min: Date.current, class: "w-full border border-[#C9A96E]/40 rounded px-3 py-2.5 bg-white text-[#3D2B1F] focus:ring-2 focus:ring-[#C9A96E] focus:border-[#C9A96E] outline-none text-sm" %>
+            </div>
+            <div>
+              <%= f.label :reservation_time, "Time", class: "block text-sm font-medium text-[#3D2B1F] mb-1" %>
+              <%= f.time_field :reservation_time, class: "w-full border border-[#C9A96E]/40 rounded px-3 py-2.5 bg-white text-[#3D2B1F] focus:ring-2 focus:ring-[#C9A96E] focus:border-[#C9A96E] outline-none text-sm" %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :special_requests, "Special Requests (optional)", class: "block text-sm font-medium text-[#3D2B1F] mb-1" %>
+            <%= f.text_area :special_requests, rows: 3, class: "w-full border border-[#C9A96E]/40 rounded px-3 py-2.5 bg-white text-[#3D2B1F] focus:ring-2 focus:ring-[#C9A96E] focus:border-[#C9A96E] outline-none text-sm", placeholder: "High chair needed, birthday dinner, etc." %>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <%= f.submit "Request Reservation", class: "w-full bg-[#8B1A1A] text-[#FAF3E8] font-semibold py-3 rounded cursor-pointer hover:bg-[#6d1515] text-sm" %>
+        </div>
+      <% end %>
+    </div>
+
+    <p class="text-center text-sm text-[#FAF3E8]/40 mt-6">
+      Or call us directly: <a href="tel:8036280270" class="text-[#C9A96E] hover:underline">(803) 628-0270</a>
+    </p>
+  </div>
+</section>

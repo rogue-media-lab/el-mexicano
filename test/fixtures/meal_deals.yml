@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  price: 9.99
+  featured: false
+  active: false
+  main_item: one
+  default_side: one
+  default_drink: one
+  photo: MyString
+
+two:
+  name: MyString
+  description: MyText
+  price: 9.99
+  featured: false
+  active: false
+  main_item: two
+  default_side: two
+  default_drink: two
+  photo: MyString

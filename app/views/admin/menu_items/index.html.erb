@@ -1,0 +1,58 @@
+<div class="flex items-center justify-between mb-8">
+  <h2 class="text-2xl font-bold text-gray-900">Menu Items</h2>
+  <%= link_to "New Item", new_admin_menu_item_path, class: "bg-gray-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800" %>
+</div>
+
+<div class="mb-4 flex items-center gap-3">
+  <%= form_tag admin_menu_items_path, method: :get, class: "flex gap-2" do %>
+    <%= select_tag :category, options_from_collection_for_select(MenuCategory.ordered, :id, :name, params[:category]), include_blank: "All Categories", class: "border border-gray-300 rounded-lg px-3 py-2 text-sm" %>
+    <%= hidden_field_tag :featured, params[:featured] %>
+    <%= submit_tag "Filter", class: "bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm hover:bg-gray-300 cursor-pointer" %>
+  <% end %>
+  <div class="flex gap-2">
+    <%= link_to "All", admin_menu_items_path(category: params[:category]), class: "px-3 py-1.5 rounded text-sm #{params[:featured].blank? ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}" %>
+    <%= link_to "Featured", admin_menu_items_path(category: params[:category], featured: "1"), class: "px-3 py-1.5 rounded text-sm #{params[:featured] == '1' ? 'bg-amber-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}" %>
+  </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-gray-200">
+  <table class="w-full">
+    <thead class="bg-gray-50 border-b border-gray-200">
+      <tr>
+        <th class="text-left p-4 text-sm font-medium text-gray-500">Name</th>
+        <th class="text-left p-4 text-sm font-medium text-gray-500">Category</th>
+        <th class="text-left p-4 text-sm font-medium text-gray-500">Price</th>
+        <th class="text-left p-4 text-sm font-medium text-gray-500">Status</th>
+        <th class="text-right p-4 text-sm font-medium text-gray-500">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100">
+      <% @items.each do |item| %>
+        <tr class="hover:bg-gray-50">
+          <td class="p-4">
+            <p class="font-medium text-gray-900"><%= item.name %></p>
+            <p class="text-xs text-gray-400 truncate max-w-xs"><%= item.description %></p>
+          </td>
+          <td class="p-4 text-gray-600 text-sm"><%= item.menu_category.name %></td>
+          <td class="p-4 text-gray-900 font-medium"><%= item.formatted_price %></td>
+          <td class="p-4">
+            <div class="flex gap-1">
+              <% if item.active? %>
+                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Active</span>
+              <% else %>
+                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Inactive</span>
+              <% end %>
+              <% if item.featured? %>
+                <span class="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded">Featured</span>
+              <% end %>
+            </div>
+          </td>
+          <td class="p-4 text-right space-x-2">
+            <%= link_to "Edit", edit_admin_menu_item_path(item), class: "text-sm text-blue-600 hover:underline" %>
+            <%= button_to "Delete", admin_menu_item_path(item), method: :delete, data: { turbo_confirm: "Delete this item?" }, class: "text-sm text-red-600 hover:underline inline bg-transparent border-0 cursor-pointer p-0" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

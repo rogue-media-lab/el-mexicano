@@ -1,0 +1,39 @@
+<div class="min-h-screen bg-[#8B1A1A] flex flex-col items-center justify-center px-6">
+  <div class="mb-8 text-center">
+    <h1 class="text-2xl font-bold text-[#FAF3E8]" style="font-family: 'Playfair Display', serif;">Italian Garden</h1>
+    <p class="text-sm text-[#C9A96E] uppercase tracking-wider mt-1">Admin</p>
+  </div>
+
+  <div class="w-full max-w-sm bg-[#FAF3E8] rounded-lg shadow-lg p-8">
+    <h2 class="text-xl font-bold text-[#3D2B1F] mb-6 text-center" style="font-family: 'Playfair Display', serif;">Sign In</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="space-y-4">
+        <div>
+          <%= f.label :email, class: "block text-sm font-medium text-[#3D2B1F] mb-1" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border border-[#C9A96E]/40 rounded px-3 py-2.5 bg-white text-[#3D2B1F] focus:ring-2 focus:ring-[#C9A96E] focus:border-[#C9A96E] outline-none text-sm" %>
+        </div>
+
+        <div>
+          <%= f.label :password, class: "block text-sm font-medium text-[#3D2B1F] mb-1" %>
+          <%= f.password_field :password, autocomplete: "current-password", class: "w-full border border-[#C9A96E]/40 rounded px-3 py-2.5 bg-white text-[#3D2B1F] focus:ring-2 focus:ring-[#C9A96E] focus:border-[#C9A96E] outline-none text-sm" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center gap-2">
+            <%= f.check_box :remember_me, class: "rounded border-[#C9A96E]/40 text-[#8B1A1A] focus:ring-[#C9A96E]" %>
+            <%= f.label :remember_me, class: "text-sm text-[#5A4A3F]" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="mt-6">
+        <%= f.submit "Sign In", class: "w-full bg-[#8B1A1A] text-[#FAF3E8] font-semibold py-2.5 rounded cursor-pointer hover:bg-[#6d1515] text-sm" %>
+      </div>
+    <% end %>
+
+    <div class="mt-6 pt-4 border-t border-[#C9A96E]/20 text-center">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

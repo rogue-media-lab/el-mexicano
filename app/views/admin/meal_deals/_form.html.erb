@@ -1,0 +1,82 @@
+<div class="mb-8">
+  <%= link_to "← Back to meal deals", admin_meal_deals_path, class: "text-sm text-gray-500 hover:text-gray-700" %>
+  <h2 class="text-2xl font-bold text-gray-900 mt-2"><%= @deal.new_record? ? "New Meal Deal" : "Edit Meal Deal" %></h2>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 max-w-lg">
+  <%= form_with(model: [:admin, @deal]) do |f| %>
+    <% if @deal.errors.any? %>
+      <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+        <% @deal.errors.full_messages.each do |msg| %>
+          <p class="text-sm text-red-700"><%= msg %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="space-y-4">
+      <div>
+        <%= f.label :name, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :name, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none", placeholder: "e.g. Pizza Combo" %>
+      </div>
+
+      <div>
+        <%= f.label :description, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :description, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none", placeholder: "e.g. Special Pizza + Fries + Drink" %>
+      </div>
+
+      <div>
+        <%= f.label :price, "Combo Price", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <div class="relative">
+          <span class="absolute left-3 top-2 text-gray-400">$</span>
+          <%= f.number_field :price, step: 0.01, min: 0, class: "w-40 border border-gray-300 rounded-lg pl-7 pr-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" %>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-100 pt-4">
+        <h3 class="text-sm font-semibold text-gray-700 mb-3">What's Included</h3>
+
+        <div class="space-y-3">
+          <div>
+            <%= f.label :main_item_id, "Main Item", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.collection_select :main_item_id, @main_items, :id, ->(item) { "#{item.name} (#{item.menu_category.name}) — #{item.formatted_price}" }, { include_blank: "Select main item..." }, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none text-sm" %>
+          </div>
+
+          <div>
+            <%= f.label :default_side_id, "Side", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.collection_select :default_side_id, @sides, :id, ->(item) { "#{item.name} — #{item.formatted_price}" }, { include_blank: "Select side..." }, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none text-sm" %>
+          </div>
+
+          <div>
+            <%= f.label :default_drink_id, "Drink", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.collection_select :default_drink_id, @drinks, :id, ->(item) { "#{item.name} — #{item.formatted_price}" }, { include_blank: "Select drink..." }, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none text-sm" %>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <%= f.label :photo, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <% if @deal.photo.attached? %>
+          <div class="mb-3">
+            <%= image_tag @deal.photo, class: "w-32 h-32 rounded-lg object-cover border border-gray-200" %>
+          </div>
+        <% end %>
+        <%= f.file_field :photo, accept: "image/*", class: "w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200" %>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2">
+          <%= f.check_box :active, class: "rounded border-gray-300 text-amber-600 focus:ring-amber-500" %>
+          <%= f.label :active, "Active", class: "text-sm text-gray-700" %>
+        </div>
+        <div class="flex items-center gap-2">
+          <%= f.check_box :featured, class: "rounded border-gray-300 text-amber-600 focus:ring-amber-500" %>
+          <%= f.label :featured, "Featured on Homepage", class: "text-sm text-gray-700" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <%= f.submit class: "bg-gray-900 text-white px-6 py-2 rounded-lg text-sm hover:bg-gray-800 cursor-pointer" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Italian Garden Restaurant — York, SC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Authentic Italian-American dining in York, SC. Family-owned, generous portions, and real comfort food.">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <style>
+    :root {
+      --oxblood: #8B1A1A;
+      --gold: #C9A96E;
+      --cream: #FAF3E8;
+      --espresso: #3D2B1F;
+      --parchment: #F5E6CC;
+    }
+    body { font-family: 'DM Sans', system-ui, sans-serif; color: var(--espresso); background: var(--cream); }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+  </style>
+    <%= javascript_importmap_tags %>
+</head>
+<body class="min-h-screen">
+  <!-- Nav -->
+  <nav class="flex items-center justify-between px-6 md:px-12 py-5 bg-[#FAF3E8]">
+    <a href="/" class="text-xl font-bold text-[#3D2B1F]" style="font-family: 'Playfair Display', serif;">Italian Garden</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/menu" class="text-sm font-medium text-[#3D2B1F] uppercase tracking-wide hover:text-[#8B1A1A]">Menu</a>
+      <a href="/about" class="text-sm font-medium text-[#3D2B1F] uppercase tracking-wide hover:text-[#8B1A1A]">About</a>
+      <a href="/contact" class="text-sm font-medium text-[#3D2B1F] uppercase tracking-wide hover:text-[#8B1A1A]">Contact</a>
+      <a href="/reservations/new" class="text-sm font-medium text-[#3D2B1F] uppercase tracking-wide hover:text-[#8B1A1A]">Reserve</a>
+      <a href="/cart" class="text-sm font-medium text-[#3D2B1F] uppercase tracking-wide hover:text-[#8B1A1A] relative">
+        Cart
+        <% cart = Cart.new(session); unless cart.empty? %>
+          <span class="absolute -top-2 -right-4 bg-[#8B1A1A] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center"><%= cart.count %></span>
+        <% end %>
+      </a>
+      <a href="/menu" class="text-sm font-semibold text-white bg-[#8B1A1A] px-6 py-2.5 rounded hover:bg-[#6d1515]">Order Now</a>
+    </div>
+    <!-- Mobile: cart + hamburger -->
+    <div class="md:hidden flex items-center gap-3">
+      <a href="/cart" class="relative text-[#3D2B1F]">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+        <% cart = Cart.new(session); unless cart.empty? %>
+          <span class="absolute -top-2 -right-2 bg-[#8B1A1A] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center"><%= cart.count %></span>
+        <% end %>
+      </a>
+      <button onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" class="text-[#3D2B1F]">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav -->
+  <div id="mobile-nav" class="hidden md:hidden bg-[#FAF3E8] px-6 pb-4 border-b border-[#C9A96E]/20">
+    <a href="/menu" class="block py-2 text-sm font-medium text-[#3D2B1F] uppercase tracking-wide">Menu</a>
+    <a href="/about" class="block py-2 text-sm font-medium text-[#3D2B1F] uppercase tracking-wide">About</a>
+    <a href="/contact" class="block py-2 text-sm font-medium text-[#3D2B1F] uppercase tracking-wide">Contact</a>
+    <a href="/reservations/new" class="block py-2 text-sm font-medium text-[#3D2B1F] uppercase tracking-wide">Reserve</a>
+    <a href="/menu" class="block mt-2 text-sm font-semibold text-white bg-[#8B1A1A] px-6 py-2.5 rounded text-center">Order Now</a>
+  </div>
+
+  <% if notice.present? %>
+    <div data-controller="toast" class="fixed top-20 right-4 z-50 max-w-sm bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 text-sm shadow-lg" style="transform:translateX(120%);opacity:0">
+      <div class="flex items-center gap-2">
+        <span class="flex-1"><%= notice %></span>
+        <button data-action="click->toast#dismiss" class="text-green-400 hover:text-green-600">&times;</button>
+      </div>
+    </div>
+  <% end %>
+  <% if alert.present? %>
+    <div data-controller="toast" class="fixed top-20 right-4 z-50 max-w-sm bg-red-50 border border-red-200 text-red-800 rounded-lg px-4 py-3 text-sm shadow-lg" style="transform:translateX(120%);opacity:0">
+      <div class="flex items-center gap-2">
+        <span class="flex-1"><%= alert %></span>
+        <button data-action="click->toast#dismiss" class="text-red-400 hover:text-red-600">&times;</button>
+      </div>
+    </div>
+  <% end %>
+
+  <main>
+    <%= yield %>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#2A1D14] px-6 md:px-12 py-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-[#FAF3E8]/40">&copy; 2025 Italian Garden Restaurant — York, SC</p>
+      <div class="flex gap-6 items-center">
+        <a href="https://www.google.com/maps/place/Italian+Garden+Restaurant/@34.9875107,-81.2274933,17z/data=!4m8!3m7!1s0x8856f38afc7c1885:0x1c7a0b6c7cc288e7!8m2!3d34.9875107!4d-81.2274933!9m1!1b1!16s%2Fg%2F1tfh_96q?entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="text-xs text-[#FAF3E8]/40 hover:text-[#FAF3E8]/70">Google</a>
+        <a href="https://www.yelp.com/biz/italian-garden-restaurant-york" target="_blank" class="text-xs text-[#FAF3E8]/40 hover:text-[#FAF3E8]/70">Yelp</a>
+        <a href="https://www.tripadvisor.com/Restaurant_Review-g54509-d3620460-Reviews-Italian_Garden_Restaurant-York_South_Carolina.html" target="_blank" class="text-xs text-[#FAF3E8]/40 hover:text-[#FAF3E8]/70">TripAdvisor</a>
+        <a href="https://www.facebook.com/p/Italian-Garden-Restaurant-100070887769336/" target="_blank" class="text-xs text-[#FAF3E8]/40 hover:text-[#FAF3E8]/70">Facebook</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

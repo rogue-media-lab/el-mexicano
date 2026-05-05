@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign In — Italian Garden</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <style>
+    body { font-family: 'DM Sans', system-ui, sans-serif; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body>
+  <% if notice.present? %>
+    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 p-4 bg-green-50 border border-green-200 text-green-800 rounded-lg text-sm shadow-lg"><%= notice %></div>
+  <% end %>
+  <% if alert.present? %>
+    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm shadow-lg"><%= alert %></div>
+  <% end %>
+
+  <%= yield %>
+</body>
+</html>

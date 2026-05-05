@@ -1,0 +1,87 @@
+<section class="px-6 md:px-12 py-16 md:py-20 bg-[#FAF3E8] min-h-screen">
+  <h1 class="text-3xl md:text-4xl font-bold text-[#3D2B1F] text-center mb-12 tracking-tight">Your Cart</h1>
+
+  <% if @cart.empty? %>
+    <div class="text-center py-12">
+      <p class="text-[#5A4A3F] mb-4">Your cart is empty.</p>
+      <a href="/menu" class="text-sm font-semibold text-[#8B1A1A] bg-[#C9A96E] px-8 py-3 rounded">Browse Menu</a>
+    </div>
+  <% else %>
+    <div class="max-w-2xl mx-auto">
+      <div class="space-y-4 mb-8">
+        <!-- Meal Deals -->
+        <% deals = @cart.meal_deal_objects %>
+        <% items = @cart.menu_items %>
+        <% drinks = @cart.drink_options %>
+        <% @cart.meal_deals.each_with_index do |meal, idx| %>
+          <% deal = deals[meal["deal_id"]] %>
+          <% next unless deal %>
+          <div class="bg-white rounded-lg p-5 shadow-sm border-l-4 border-[#C9A96E]">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <p class="font-medium text-[#3D2B1F]"><%= deal.name %></p>
+                <p class="text-sm text-[#5A4A3F]">Combo Deal</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="font-semibold text-[#3D2B1F]"><%= deal.formatted_price %></span>
+                <%= button_to "×", cart_remove_meal_path(idx), method: :delete, class: "text-red-500 hover:text-red-700 text-xl cursor-pointer bg-transparent border-0 p-0" %>
+              </div>
+            </div>
+            <div class="pl-4 space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-[#5A4A3F]"><%= items[meal["main_id"]]&.name || "Main" %></span>
+                <span class="text-[#5A4A3F]/50">Main</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#5A4A3F]"><%= items[meal["side_id"]]&.name || "Side" %></span>
+                <span class="text-[#5A4A3F]/50">Side</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                  <span class="text-[#5A4A3F]/50">Drink:</span>
+                  <%= form_tag cart_swap_drink_path, method: :patch, class: "inline" do %>
+                    <%= hidden_field_tag :meal_index, idx %>
+                    <%= select_tag :drink_id, options_from_collection_for_select(drinks, :id, :name, meal["drink_id"]), onchange: "this.form.submit()", class: "border border-[#C9A96E]/40 rounded px-2 py-1 text-sm text-[#3D2B1F] bg-white" %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Regular Items -->
+        <% @cart.items.each do |item_id, qty| %>
+          <% item = items[item_id.to_i] %>
+          <% next unless item %>
+          <div class="bg-white rounded-lg p-5 flex items-center gap-4 shadow-sm">
+            <div class="flex-1">
+              <p class="font-medium text-[#3D2B1F]"><%= item.name %></p>
+              <p class="text-sm text-[#5A4A3F]"><%= item.formatted_price %> each</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <%= form_tag cart_update_path, method: :patch, class: "flex items-center gap-2" do %>
+                <%= hidden_field_tag :menu_item_id, item_id %>
+                <%= number_field_tag :quantity, qty, min: 1, class: "w-16 border border-[#C9A96E]/40 rounded px-2 py-1 text-center text-sm" %>
+                <%= submit_tag "Update", class: "text-xs text-[#8B1A1A] cursor-pointer bg-transparent border-0 underline" %>
+              <% end %>
+            </div>
+            <p class="font-semibold text-[#3D2B1F] w-20 text-right">$<%= '%.2f' % (item.price * qty) %></p>
+            <%= button_to "×", cart_remove_path(item_id), method: :delete, class: "text-red-500 hover:text-red-700 text-xl cursor-pointer bg-transparent border-0 p-0 ml-2" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="bg-white rounded-lg p-6 shadow-sm mb-6">
+        <div class="flex justify-between items-center text-lg">
+          <span class="font-medium text-[#3D2B1F]">Total</span>
+          <span class="font-bold text-[#3D2B1F]"><%= @cart.formatted_total %></span>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <a href="/orders/new" class="flex-1 text-center text-sm font-semibold text-[#FAF3E8] bg-[#8B1A1A] px-6 py-3 rounded hover:bg-[#6d1515]">Checkout</a>
+        <%= button_to "Clear Cart", cart_clear_path, method: :delete, class: "text-sm text-[#5A4A3F] hover:text-[#3D2B1F] cursor-pointer bg-transparent border-0" %>
+      </div>
+    </div>
+  <% end %>
+</section>

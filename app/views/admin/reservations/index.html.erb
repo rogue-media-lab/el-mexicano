@@ -1,0 +1,60 @@
+<div class="flex items-center justify-between mb-8">
+  <h2 class="text-2xl font-bold text-gray-900">Reservations</h2>
+  <div class="flex gap-2">
+    <%= link_to "All", admin_reservations_path, class: "px-3 py-1.5 rounded text-sm #{params[:status].blank? ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}" %>
+    <%= link_to "Pending", admin_reservations_path(status: "pending"), class: "px-3 py-1.5 rounded text-sm #{params[:status] == 'pending' ? 'bg-amber-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}" %>
+    <%= link_to "Confirmed", admin_reservations_path(status: "confirmed"), class: "px-3 py-1.5 rounded text-sm #{params[:status] == 'confirmed' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}" %>
+  </div>
+</div>
+
+<div class="space-y-3">
+  <% @reservations.each do |r| %>
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5">
+      <div class="flex items-start justify-between gap-4">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="font-semibold text-gray-900"><%= r.customer_name %></span>
+            <span class="text-xs px-2 py-0.5 rounded <%= r.status_color %>"><%= r.status.capitalize %></span>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
+            <div>
+              <p class="text-xs text-gray-400">Date</p>
+              <p class="font-medium text-gray-900"><%= r.formatted_date %></p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-400">Time</p>
+              <p class="font-medium text-gray-900"><%= r.formatted_time %></p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-400">Party Size</p>
+              <p class="font-medium text-gray-900"><%= r.party_size %> guests</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-400">Phone</p>
+              <p class="font-medium text-gray-900"><%= r.phone %></p>
+            </div>
+          </div>
+          <% if r.special_requests.present? %>
+            <p class="text-sm text-gray-500 mt-2 italic">"<%= r.special_requests %>"</p>
+          <% end %>
+        </div>
+
+        <div class="flex gap-2 flex-shrink-0">
+          <% if r.status == "pending" %>
+            <%= button_to "Confirm", admin_reservation_path(r, reservation: { status: "confirmed" }), method: :patch, class: "text-sm bg-green-600 text-white px-3 py-1.5 rounded hover:bg-green-700 cursor-pointer" %>
+            <%= button_to "Cancel", admin_reservation_path(r, reservation: { status: "cancelled" }), method: :patch, class: "text-sm bg-gray-200 text-gray-700 px-3 py-1.5 rounded hover:bg-gray-300 cursor-pointer" %>
+          <% elsif r.status == "confirmed" %>
+            <%= button_to "Cancel", admin_reservation_path(r, reservation: { status: "cancelled" }), method: :patch, class: "text-sm bg-gray-200 text-gray-700 px-3 py-1.5 rounded hover:bg-gray-300 cursor-pointer" %>
+          <% end %>
+          <%= button_to "Delete", admin_reservation_path(r), method: :delete, data: { turbo_confirm: "Delete this reservation?" }, class: "text-sm text-red-600 hover:underline cursor-pointer bg-transparent border-0 p-0" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @reservations.empty? %>
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
+      <p class="text-gray-400">No reservations yet.</p>
+    </div>
+  <% end %>
+</div>

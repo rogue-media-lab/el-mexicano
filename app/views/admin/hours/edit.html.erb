@@ -1,0 +1,37 @@
+<div class="mb-8">
+  <h2 class="text-2xl font-bold text-gray-900">Hours of Operation</h2>
+  <p class="text-gray-500 mt-1">Set open and close times for each day.</p>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 max-w-2xl">
+  <%= form_tag admin_hours_path, method: :put do %>
+    <div class="space-y-4">
+      <% @hours.each do |hour| %>
+        <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50">
+          <div class="w-28 font-medium text-gray-900"><%= hour.day_name %></div>
+
+          <div class="flex items-center gap-2">
+            <%= check_box_tag "hours[#{hour.id}][closed]", "1", hour.closed, class: "rounded border-gray-300 text-amber-600", id: "closed_#{hour.id}", onchange: "toggleHours(#{hour.id}, this.checked)" %>
+            <label for="closed_<%= hour.id %>" class="text-sm text-gray-600">Closed</label>
+          </div>
+
+          <div class="flex items-center gap-2" id="time_inputs_<%= hour.id %>" style="<%= 'display:none' if hour.closed? %>">
+            <%= time_field_tag "hours[#{hour.id}][open_time", hour.open_time&.strftime("%H:%M"), class: "border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none", id: "open_#{hour.id}" %>
+            <span class="text-gray-400">to</span>
+            <%= time_field_tag "hours[#{hour.id}][close_time]", hour.close_time&.strftime("%H:%M"), class: "border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none", id: "close_#{hour.id}" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-6">
+      <%= submit_tag "Save Hours", class: "bg-gray-900 text-white px-6 py-2 rounded-lg text-sm hover:bg-gray-800 cursor-pointer" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function toggleHours(id, closed) {
+    document.getElementById('time_inputs_' + id).style.display = closed ? 'none' : 'flex';
+  }
+</script>

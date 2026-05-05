@@ -1,0 +1,61 @@
+<div class="mb-8">
+  <h2 class="text-2xl font-bold text-gray-900">Site Settings</h2>
+  <p class="text-gray-500 mt-1">Manage your site content and contact information.</p>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 max-w-2xl">
+  <%= form_tag admin_site_settings_path, method: :put do %>
+    <!-- Hero Section -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Hero Section</h3>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Heading</label>
+          <%= text_field_tag "settings[hero_heading]", @settings["hero_heading"]&.value, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" %>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Subheading</label>
+          <%= text_area_tag "settings[hero_subheading]", @settings["hero_subheading"]&.value, rows: 3, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">About Section</h3>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Heading</label>
+          <%= text_field_tag "settings[about_heading]", @settings["about_heading"]&.value, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" %>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Body Text</label>
+          <%= text_area_tag "settings[about_body]", @settings["about_body"]&.value, rows: 5, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Contact Information</h3>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+          <%= text_field_tag "settings[address]", @settings["address"]&.value, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" %>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+          <%= text_field_tag "settings[phone]", @settings["phone"]&.value, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" %>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <%= text_field_tag "settings[email]", @settings["email"]&.value, class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none" %>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <%= submit_tag "Save Settings", class: "bg-gray-900 text-white px-6 py-2 rounded-lg text-sm hover:bg-gray-800 cursor-pointer" %>
+    </div>
+  <% end %>
+</div>

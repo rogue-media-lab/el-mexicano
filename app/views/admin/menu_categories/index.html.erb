@@ -1,0 +1,38 @@
+<div class="flex items-center justify-between mb-8">
+  <h2 class="text-2xl font-bold text-gray-900">Menu Categories</h2>
+  <%= link_to "New Category", new_admin_menu_category_path, class: "bg-gray-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800" %>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-gray-200">
+  <table class="w-full">
+    <thead class="bg-gray-50 border-b border-gray-200">
+      <tr>
+        <th class="text-left p-4 text-sm font-medium text-gray-500">Name</th>
+        <th class="text-left p-4 text-sm font-medium text-gray-500">Sort Order</th>
+        <th class="text-left p-4 text-sm font-medium text-gray-500">Items</th>
+        <th class="text-left p-4 text-sm font-medium text-gray-500">Status</th>
+        <th class="text-right p-4 text-sm font-medium text-gray-500">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100">
+      <% @categories.each do |cat| %>
+        <tr class="hover:bg-gray-50">
+          <td class="p-4 font-medium text-gray-900"><%= cat.name %></td>
+          <td class="p-4 text-gray-600"><%= cat.sort_order %></td>
+          <td class="p-4 text-gray-600"><%= cat.menu_items.count %></td>
+          <td class="p-4">
+            <% if cat.active? %>
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Active</span>
+            <% else %>
+              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Inactive</span>
+            <% end %>
+          </td>
+          <td class="p-4 text-right space-x-2">
+            <%= link_to "Edit", edit_admin_menu_category_path(cat), class: "text-sm text-blue-600 hover:underline" %>
+            <%= button_to "Delete", admin_menu_category_path(cat), method: :delete, data: { turbo_confirm: "Delete this category and all its items?" }, class: "text-sm text-red-600 hover:underline inline bg-transparent border-0 cursor-pointer p-0" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

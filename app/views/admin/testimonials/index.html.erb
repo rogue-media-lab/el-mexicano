@@ -1,0 +1,30 @@
+<div class="flex items-center justify-between mb-8">
+  <h2 class="text-2xl font-bold text-gray-900">Testimonials</h2>
+  <%= link_to "New Testimonial", new_admin_testimonial_path, class: "bg-gray-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800" %>
+</div>
+
+<div class="space-y-4">
+  <% @testimonials.each do |t| %>
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5">
+      <div class="flex items-start justify-between">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-amber-500 text-sm"><%= t.star_display %></span>
+            <span class="font-medium text-gray-900"><%= t.customer_name %></span>
+            <% if t.featured? %>
+              <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Featured</span>
+            <% end %>
+            <% unless t.active? %>
+              <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">Inactive</span>
+            <% end %>
+          </div>
+          <p class="text-gray-600 text-sm italic">"<%= t.quote %>"</p>
+        </div>
+        <div class="flex gap-2 ml-4">
+          <%= link_to "Edit", edit_admin_testimonial_path(t), class: "text-sm text-blue-600 hover:underline" %>
+          <%= button_to "Delete", admin_testimonial_path(t), method: :delete, data: { turbo_confirm: "Delete this testimonial?" }, class: "text-sm text-red-600 hover:underline inline bg-transparent border-0 cursor-pointer p-0" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
