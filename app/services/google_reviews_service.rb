@@ -1,5 +1,5 @@
 class GoogleReviewsService
-  PLACE_ID = "ChIJN0VEfcH0WYgRx3Y9I6LJWDQ" # Italian Garden Restaurant, York SC
+  PLACE_ID = "ChIJeTI3VEvsVogR39K1AcGkr2Y" # El Mexicano, Clover SC
   CACHE_KEY = "google_reviews"
   CACHE_DURATION = 24.hours
 
@@ -50,9 +50,9 @@ class GoogleReviewsService
       rating: 4.5,
       total: 85,
       reviews: [
-        { author: "Donna G.", rating: 5, text: "The chicken fettuccine Alfredo is the best I've ever had. Creamy, rich, and the portions are huge.", time: "Recent" },
-        { author: "Will B.", rating: 5, text: "Best wings in York, hands down. Crispy, bold flavor, and they don't skimp on the size.", time: "Recent" },
-        { author: "Angel M.", rating: 5, text: "Family-owned and you can feel it. The staff treats you like family, the food is always on point.", time: "Recent" }
+        { author: "Donna G.", rating: 5, text: "The carne asada tacos are the best I've ever had. Fresh, flavorful, and the portions are huge.", time: "Recent" },
+        { author: "Will B.", rating: 5, text: "Best enchiladas in Clover, hands down. Bold flavor, great salsa, and they don't skimp on the portions.", time: "Recent" },
+        { author: "Angel M.", rating: 5, text: "Family-owned and you can feel it. The staff treats you like family, the food is always on point. Love this place!", time: "Recent" }
       ]
     }
   end

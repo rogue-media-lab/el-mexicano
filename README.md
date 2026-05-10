@@ -1,8 +1,6 @@
-# Italian Garden Restaurant
+# El Mexicano
 
-A custom restaurant website and ordering platform for Italian Garden Restaurant in York, SC. Built with Rails 8, featuring online ordering, table reservations, meal deals, and a full admin dashboard.
-
-**Live:** [italian-garden-4ccf363272a1.herokuapp.com](https://italian-garden-4ccf363272a1.herokuapp.com/)
+A custom restaurant website and ordering platform for El Mexicano in Clover, SC. Built with Rails 8, featuring online ordering, table reservations, meal deals, and a full admin dashboard.
 
 ---
 
@@ -14,7 +12,7 @@ A custom restaurant website and ordering platform for Italian Garden Restaurant 
 - **Table Reservations** — request a table with date, time, party size, and special requests
 - **Real-Time Menu** — categories, items, and prices managed from the admin dashboard
 - **Google Reviews** — live review integration with overall rating display
-- **Review Links** — direct links to Google, Yelp, TripAdvisor, and Facebook
+- **Review Links** — direct links to Google, Yelp, and Facebook
 - **Mobile Responsive** — full ordering flow works on any device
 
 ### Admin Dashboard
@@ -61,8 +59,8 @@ A custom restaurant website and ordering platform for Italian Garden Restaurant 
 ### Setup
 
 ```bash
-git clone git@github.com:rogue-media-lab/italian-garden.git
-cd italian-garden
+git clone git@github.com:rogue-media-lab/el-mexicano.git
+cd el-mexicano
 rbenv local 3.4.1
 bundle install
 bin/rails db:create db:migrate db:seed
@@ -72,8 +70,20 @@ bin/dev
 Visit `http://localhost:3000`
 
 ### Admin Login
-- **Email:** admin@italiangarden.com
+- **Email:** admin@elmexicano.com
 - **Password:** password123
+
+---
+
+## Restaurant Info
+
+| | |
+|---|---|
+| **Name** | El Mexicano |
+| **Address** | 401 N Main St, Clover, SC 29710 |
+| **Phone** | (803) 222-1838 |
+| **Hours** | Mon-Thu 11am-10pm, Fri-Sat 11am-10:30pm, Sun 11am-10pm |
+| **Google Place ID** | ChIJeTI3VEvsVogR39K1AcGkr2Y |
 
 ---
 
@@ -103,10 +113,10 @@ Visit `http://localhost:3000`
 ### Heroku
 
 ```bash
-heroku git:remote -a italian-garden
+heroku git:remote -a el-mexicano
 git push heroku main
-heroku run bin/rails db:migrate -a italian-garden
-heroku run bin/rails db:seed -a italian-garden
+heroku run bin/rails db:migrate -a el-mexicano
+heroku run bin/rails db:seed -a el-mexicano
 ```
 
 **Config Vars:**
@@ -152,14 +162,17 @@ app/
 
 ---
 
-## Review Platform Links
+## Color Palette (Fiesta Theme)
 
-| Platform | URL |
-|----------|-----|
-| Google Maps | [View Listing](https://www.google.com/maps/place/Italian+Garden+Restaurant/@34.9875107,-81.2274933,17z/data=!4m8!3m7!1s0x8856f38afc7c1885:0x1c7a0b6c7cc288e7!8m2!3d34.9875107!4d-81.2274933!9m1!1b1!16s%2Fg%2F1tfh_96q?entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D) |
-| Yelp | [italian-garden-restaurant-york](https://www.yelp.com/biz/italian-garden-restaurant-york) |
-| TripAdvisor | [Italian Garden Restaurant](https://www.tripadvisor.com/Restaurant_Review-g54509-d3620460-Reviews-Italian_Garden_Restaurant-York_South_Carolina.html) |
-| Facebook | [Italian Garden Restaurant](https://www.facebook.com/p/Italian-Garden-Restaurant-100070887769336/) |
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Primary Yellow | `#FDD835` | Backgrounds, hero |
+| Deep Red/Maroon | `#A10035` | Accents, CTAs, nav |
+| Navy/Dark Blue | `#1A237E` | Frame, footer |
+| Fresh Green | `#66BB6A` | Accents, icons |
+| Taco Orange | `#FBC02D` | Warm accents, buttons |
+| Dark Brown | `#795548` | Body text |
+| Off-White | `#FFF8E1` | Light backgrounds |
 
 ---
 
