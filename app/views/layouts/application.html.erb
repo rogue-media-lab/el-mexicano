@@ -22,10 +22,67 @@
       --off-white: #FFF8E1;
       --white: #FFFFFF;
     }
-    body { font-family: 'Nunito', system-ui, sans-serif; color: var(--brown); background: var(--off-white); }
+    body { font-family: 'Nunito', system-ui, sans-serif; color: var(--brown); background: #0D1547; }
     h1, h2, h3, h4 { font-family: 'Lilita One', cursive; }
 
-    /* Papel picado decorative border */
+    /* Navy outer frame */
+    .navy-frame {
+      background: #1A237E;
+      border-radius: 20px;
+      margin: 15px;
+      padding: 25px;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .navy-frame {
+        margin: 8px;
+        padding: 12px;
+        border-radius: 14px;
+      }
+    }
+
+    /* Papel picado banner at top of frame */
+    .papel-picado-banner {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+      height: 22px;
+      background: #1A237E;
+      padding-top: 0;
+    }
+    .papel-picado-banner .pennant {
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 18px solid var(--deep-red);
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) {
+      .papel-picado-banner .pennant {
+        border-left-width: 9px;
+        border-right-width: 9px;
+        border-top-width: 14px;
+      }
+      .papel-picado-banner { height: 16px; }
+    }
+
+    /* Teeth border - scalloped inverted triangles */
+    .teeth-border {
+      width: 100%;
+      height: 14px;
+      background:
+        linear-gradient(135deg, var(--deep-red) 33.33%, transparent 33.33%) 0 0 / 14px 14px,
+        linear-gradient(225deg, var(--deep-red) 33.33%, transparent 33.33%) 7px 0 / 14px 14px;
+      background-repeat: repeat-x;
+      background-position: top left;
+    }
+    @media (max-width: 768px) {
+      .teeth-border { height: 10px; }
+    }
+
+    /* Papel picado decorative border (kept for other sections) */
     .papel-picado {
       position: relative;
     }
@@ -49,119 +106,185 @@
       background-repeat: repeat-x;
       height: 16px;
     }
+
+    /* Wavy background texture for yellow sections */
+    .wavy-texture {
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='20'%3E%3Cpath d='M0 10 Q25 0 50 10 Q75 20 100 10' stroke='%23E8B800' stroke-width='1.5' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 100px 20px;
+    }
+
+    /* Colorful bunting flags in hero corner */
+    .bunting-container {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      width: 100px;
+      height: 80px;
+      z-index: 5;
+    }
+    .bunting-string {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      border-bottom: 2px dashed rgba(26,35,126,0.3);
+      border-radius: 0 0 50% 50%;
+    }
+    .bunting-flag {
+      position: absolute;
+      width: 10px;
+      height: 16px;
+      top: 22px;
+      border-radius: 0 0 2px 2px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    @media (max-width: 768px) {
+      .bunting-container {
+        width: 70px;
+        height: 55px;
+        top: 10px;
+        right: 10px;
+      }
+      .bunting-flag {
+        width: 7px;
+        height: 11px;
+        top: 15px;
+      }
+      .bunting-string { height: 20px; }
+    }
+
+    /* Red promo banner */
+    .promo-banner {
+      background: var(--deep-red);
+      min-height: 70px;
+    }
   </style>
 </head>
 <body class="min-h-screen">
-  <!-- Nav -->
-  <nav class="flex items-center justify-between px-6 md:px-12 py-5" style="background: var(--off-white);">
-    <a href="/" class="text-xl font-bold" style="font-family: 'Lilita One', cursive; color: var(--deep-red);">El Mexicano</a>
-    <div class="hidden md:flex items-center gap-8">
-      <a href="/" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">Home</a>
-      <a href="/menu" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">Menu</a>
-      <a href="/about" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">About</a>
-      <a href="/contact" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">Contact</a>
-      <a href="/reservations/new" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">Reservations</a>
-      <a href="/cart" class="text-sm font-medium uppercase tracking-wide hover:opacity-80 relative" style="color: var(--brown);">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <% cart = Cart.new(session); unless cart.empty? %>
-          <span class="absolute -top-2 -right-4 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center" style="background: var(--deep-red);"><%= cart.count %></span>
-        <% end %>
-      </a>
-      <a href="/menu" class="text-sm font-semibold text-white px-6 py-2.5 rounded-full hover:opacity-90" style="background: var(--deep-red);">Order Now</a>
+  <div class="navy-frame">
+    <!-- Papel picado banner at very top -->
+    <div class="papel-picado-banner">
+      <% 100.times do |i| %>
+        <div class="pennant" style="border-top-color: <%= ['#A10035','#FDD835','#66BB6A','#FBC02D','#1A237E'][i % 5] %>;"></div>
+      <% end %>
     </div>
-    <!-- Mobile: cart + hamburger -->
-    <div class="md:hidden flex items-center gap-3">
-      <a href="/cart" class="relative" style="color: var(--brown);">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
-        <% cart = Cart.new(session); unless cart.empty? %>
-          <span class="absolute -top-2 -right-2 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center" style="background: var(--deep-red);"><%= cart.count %></span>
-        <% end %>
-      </a>
-      <button onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" style="color: var(--brown);">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </div>
-  </nav>
+    <!-- Teeth border below papel picado -->
+    <div class="teeth-border"></div>
 
-  <!-- Mobile nav -->
-  <div id="mobile-nav" class="hidden md:hidden px-6 pb-4" style="background: var(--off-white); border-bottom: 1px solid rgba(161,0,53,0.15);">
-    <a href="/" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">Home</a>
-    <a href="/menu" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">Menu</a>
-    <a href="/about" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">About</a>
-    <a href="/contact" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">Contact</a>
-    <a href="/reservations/new" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">Reservations</a>
-    <a href="/menu" class="block mt-2 text-sm font-semibold text-white px-6 py-2.5 rounded-full text-center" style="background: var(--deep-red);">Order Now</a>
-  </div>
-
-  <% if notice.present? %>
-    <div data-controller="toast" class="fixed top-20 right-4 z-50 max-w-sm bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 text-sm shadow-lg" style="transform:translateX(120%);opacity:0">
-      <div class="flex items-center gap-2">
-        <span class="flex-1"><%= notice %></span>
-        <button data-action="click->toast#dismiss" class="text-green-400 hover:text-green-600">&times;</button>
+    <!-- Nav -->
+    <nav class="flex items-center justify-between px-6 md:px-12 py-5" style="background: var(--off-white);">
+      <a href="/" class="text-xl font-bold" style="font-family: 'Lilita One', cursive; color: var(--deep-red);">El Mexicano</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="/" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">Home</a>
+        <a href="/menu" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">Menu</a>
+        <a href="/about" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">About</a>
+        <a href="/contact" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">Contact</a>
+        <a href="/reservations/new" class="text-sm font-medium uppercase tracking-wide hover:opacity-80" style="color: var(--brown);">Reservations</a>
+        <a href="/cart" class="text-sm font-medium uppercase tracking-wide hover:opacity-80 relative" style="color: var(--brown);">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <% cart = Cart.new(session); unless cart.empty? %>
+            <span class="absolute -top-2 -right-4 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center" style="background: var(--deep-red);"><%= cart.count %></span>
+          <% end %>
+        </a>
+        <a href="/menu" class="text-sm font-semibold text-white px-6 py-2.5 rounded-full hover:opacity-90" style="background: var(--deep-red);">Order Now</a>
       </div>
-    </div>
-  <% end %>
-  <% if alert.present? %>
-    <div data-controller="toast" class="fixed top-20 right-4 z-50 max-w-sm bg-red-50 border border-red-200 text-red-800 rounded-lg px-4 py-3 text-sm shadow-lg" style="transform:translateX(120%);opacity:0">
-      <div class="flex items-center gap-2">
-        <span class="flex-1"><%= alert %></span>
-        <button data-action="click->toast#dismiss" class="text-red-400 hover:text-red-600">&times;</button>
+      <!-- Mobile: cart + hamburger -->
+      <div class="md:hidden flex items-center gap-3">
+        <a href="/cart" class="relative" style="color: var(--brown);">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+          <% cart = Cart.new(session); unless cart.empty? %>
+            <span class="absolute -top-2 -right-2 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center" style="background: var(--deep-red);"><%= cart.count %></span>
+          <% end %>
+        </a>
+        <button onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" style="color: var(--brown);">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
       </div>
+    </nav>
+
+    <!-- Mobile nav -->
+    <div id="mobile-nav" class="hidden md:hidden px-6 pb-4" style="background: var(--off-white); border-bottom: 1px solid rgba(161,0,53,0.15);">
+      <a href="/" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">Home</a>
+      <a href="/menu" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">Menu</a>
+      <a href="/about" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">About</a>
+      <a href="/contact" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">Contact</a>
+      <a href="/reservations/new" class="block py-2 text-sm font-medium uppercase tracking-wide" style="color: var(--brown);">Reservations</a>
+      <a href="/menu" class="block mt-2 text-sm font-semibold text-white px-6 py-2.5 rounded-full text-center" style="background: var(--deep-red);">Order Now</a>
     </div>
-  <% end %>
 
-  <main>
-    <%= yield %>
-  </main>
+    <% if notice.present? %>
+      <div data-controller="toast" class="fixed top-20 right-4 z-50 max-w-sm bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 text-sm shadow-lg" style="transform:translateX(120%);opacity:0">
+        <div class="flex items-center gap-2">
+          <span class="flex-1"><%= notice %></span>
+          <button data-action="click->toast#dismiss" class="text-green-400 hover:text-green-600">&times;</button>
+        </div>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div data-controller="toast" class="fixed top-20 right-4 z-50 max-w-sm bg-red-50 border border-red-200 text-red-800 rounded-lg px-4 py-3 text-sm shadow-lg" style="transform:translateX(120%);opacity:0">
+        <div class="flex items-center gap-2">
+          <span class="flex-1"><%= alert %></span>
+          <button data-action="click->toast#dismiss" class="text-red-400 hover:text-red-600">&times;</button>
+        </div>
+      </div>
+    <% end %>
 
-  <!-- Footer -->
-  <footer class="px-6 md:px-12 py-10" style="background: var(--navy);">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col md:flex-row justify-between gap-8">
-        <!-- Brand + Address -->
-        <div>
-          <h3 class="text-lg font-bold mb-3" style="font-family: 'Lilita One', cursive; color: var(--yellow);">El Mexicano</h3>
-          <p class="text-sm" style="color: rgba(255,255,255,0.7);">401 N Main St, Clover, SC 29710</p>
-          <a href="tel:8032221838" class="text-sm font-semibold mt-1 block" style="color: var(--yellow);">(803) 222-1838</a>
-        </div>
-        <!-- Hours -->
-        <div>
-          <h4 class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: var(--yellow);">Hours</h4>
-          <p class="text-sm" style="color: rgba(255,255,255,0.7);">Mon–Thu: 11am – 10pm</p>
-          <p class="text-sm" style="color: rgba(255,255,255,0.7);">Fri–Sat: 11am – 10:30pm</p>
-          <p class="text-sm" style="color: rgba(255,255,255,0.7);">Sun: 11am – 10pm</p>
-        </div>
-        <!-- Links -->
-        <div>
-          <h4 class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: var(--yellow);">Quick Links</h4>
-          <a href="/menu" class="block text-sm mb-1 hover:opacity-80" style="color: rgba(255,255,255,0.7);">Menu</a>
-          <a href="/about" class="block text-sm mb-1 hover:opacity-80" style="color: rgba(255,255,255,0.7);">About</a>
-          <a href="/contact" class="block text-sm mb-1 hover:opacity-80" style="color: rgba(255,255,255,0.7);">Contact</a>
-          <a href="/reservations/new" class="block text-sm mb-1 hover:opacity-80" style="color: rgba(255,255,255,0.7);">Reservations</a>
-        </div>
-        <!-- Social -->
-        <div>
-          <h4 class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: var(--yellow);">Follow Us</h4>
-          <div class="flex gap-4 items-center">
-            <a href="https://www.google.com/maps/place/?q=place_id:ChIJeTI3VEvsVogR39K1AcGkr2Y" target="_blank" class="hover:opacity-80" style="color: rgba(255,255,255,0.7);">
-              <i class="fa-brands fa-google text-lg"></i>
-            </a>
-            <a href="#" class="hover:opacity-80" style="color: rgba(255,255,255,0.7);">
-              <i class="fa-brands fa-facebook text-lg"></i>
-            </a>
-            <a href="#" class="hover:opacity-80" style="color: rgba(255,255,255,0.7);">
-              <i class="fa-brands fa-instagram text-lg"></i>
+    <main>
+      <%= yield %>
+    </main>
+
+    <!-- Footer -->
+    <footer class="px-6 md:px-12 py-10" style="background: var(--navy);">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between gap-8">
+          <!-- Brand + Address -->
+          <div>
+            <h3 class="text-lg font-bold mb-3" style="font-family: 'Lilita One', cursive; color: var(--yellow);">El Mexicano</h3>
+            <p class="text-sm" style="color: rgba(255,255,255,0.7);">401 N Main St, Clover, SC 29710</p>
+            <a href="tel:8032221838" class="text-sm font-semibold mt-1 block" style="color: var(--yellow);">(803) 222-1838</a>
+          </div>
+          <!-- Hours -->
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: var(--yellow);">Hours</h4>
+            <p class="text-sm" style="color: rgba(255,255,255,0.7);">Mon–Thu: 11am – 10pm</p>
+            <p class="text-sm" style="color: rgba(255,255,255,0.7);">Fri–Sat: 11am – 10:30pm</p>
+            <p class="text-sm" style="color: rgba(255,255,255,0.7);">Sun: 11am – 10pm</p>
+          </div>
+          <!-- Links -->
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: var(--yellow);">Quick Links</h4>
+            <a href="/menu" class="block text-sm mb-1 hover:opacity-80" style="color: rgba(255,255,255,0.7);">Menu</a>
+            <a href="/about" class="block text-sm mb-1 hover:opacity-80" style="color: rgba(255,255,255,0.7);">About</a>
+            <a href="/contact" class="block text-sm mb-1 hover:opacity-80" style="color: rgba(255,255,255,0.7);">Contact</a>
+            <a href="/reservations/new" class="block text-sm mb-1 hover:opacity-80" style="color: rgba(255,255,255,0.7);">Reservations</a>
+          </div>
+          <!-- Social -->
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: var(--yellow);">Follow Us</h4>
+            <div class="flex gap-4 items-center">
+              <a href="https://www.google.com/maps/place/?q=place_id:ChIJeTI3VEvsVogR39K1AcGkr2Y" target="_blank" class="hover:opacity-80" style="color: rgba(255,255,255,0.7);">
+                <i class="fa-brands fa-google text-lg"></i>
+              </a>
+              <a href="#" class="hover:opacity-80" style="color: rgba(255,255,255,0.7);">
+                <i class="fa-brands fa-facebook text-lg"></i>
+              </a>
+              <a href="#" class="hover:opacity-80" style="color: rgba(255,255,255,0.7);">
+                <i class="fa-brands fa-instagram text-lg"></i>
+              </a>
+            </div>
+            <a href="https://www.google.com/maps/place/?q=place_id:ChIJeTI3VEvsVogR39K1AcGkr2Y" target="_blank" class="inline-block mt-3 text-xs hover:opacity-80" style="color: var(--orange);">
+              <i class="fa-solid fa-location-dot"></i> Get Directions
             </a>
           </div>
-          <a href="https://www.google.com/maps/place/?q=place_id:ChIJeTI3VEvsVogR39K1AcGkr2Y" target="_blank" class="inline-block mt-3 text-xs hover:opacity-80" style="color: var(--orange);">
-            <i class="fa-solid fa-location-dot"></i> Get Directions
-          </a>
+        </div>
+        <div class="mt-8 pt-6" style="border-top: 1px solid rgba(255,255,255,0.15);">
+          <p class="text-xs text-center" style="color: rgba(255,255,255,0.4);">&copy; 2025 El Mexicano — Clover, SC. All rights reserved.</p>
         </div>
       </div>
-      <div class="mt-8 pt-6" style="border-top: 1px solid rgba(255,255,255,0.15);">
-        <p class="text-xs text-center" style="color: rgba(255,255,255,0.4);">&copy; 2025 El Mexicano — Clover, SC. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </body>
 </html>
