@@ -40,7 +40,7 @@
     <%# Show meal deals first, then individual featured items to fill remaining slots %>
     <% @featured_deals.each do |deal| %>
       <% deal_photo = FoodPhotos.for(deal.main_item.name) %>
-      <div class="bg-white overflow-hidden" style="margin-top: -80px; position: relative; z-index: 10; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15)'">
+      <div class="bg-white overflow-hidden" style="margin-top: -40px; position: relative; z-index: 10; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15)'">
         <div class="h-56 flex items-center justify-center relative" style="background: linear-gradient(135deg, var(--orange), var(--deep-red));">
           <% if deal_photo %>
             <%= image_tag deal_photo, class: "w-full h-full object-cover" %>
@@ -63,7 +63,7 @@
     <% remaining = 3 - @featured_deals.size %>
     <% @featured_items.first(remaining).each do |item| %>
       <% item_photo = FoodPhotos.for(item.name) %>
-      <div class="bg-white overflow-hidden" style="margin-top: -80px; position: relative; z-index: 10; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15)'">
+      <div class="bg-white overflow-hidden" style="margin-top: -40px; position: relative; z-index: 10; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 40px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.15)'">
         <div class="h-56 flex items-center justify-center" style="background: linear-gradient(135deg, var(--orange), var(--deep-red));">
           <% if item_photo %>
             <%= image_tag item_photo, class: "w-full h-full object-cover" %>
