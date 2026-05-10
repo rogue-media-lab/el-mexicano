@@ -3,12 +3,12 @@ module FoodPhotos
   # Drop photo files in app/assets/images/ and add entries here.
   # Featured items show photos on homepage cards; menu page stays text-only.
   PHOTOS = {
-    # "Pollo Con Crema" => "pollo-con-crema.webp",
-    # "Carne Asada" => "carne-asada.webp",
-    # "Fajitas El Mexicano" => "fajitas.webp",
-    # "Tacos de Asada" => "tacos-asada.webp",
-    # "David's Delight" => "davids-delight.webp",
-    # "Fried Ice Cream" => "fried-ice-cream.webp",
+    "Pollo Con Crema" => "tacos-sauce.jpg",
+    "Carne Asada" => "carne-asada.jpg",
+    "Fajitas El Mexicano" => "tacos-street.jpg",
+    "Tacos de Asada" => "tacos-street.jpg",
+    "David's Delight" => "tacos-asada.jpg",
+    "Chori Pollo" => "carne-asada.jpg",
   }.freeze
 
   def self.for(item_name)

@@ -1,27 +1,23 @@
 <!-- Hero -->
-<section class="flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-16 md:py-24 relative overflow-hidden wavy-texture" style="background-color: var(--yellow);">
-  <!-- Left side: text content -->
-  <div class="flex-1 max-w-lg z-10 mb-10 md:mb-0">
-    <div class="w-16 h-1 rounded mb-6" style="background: var(--deep-red);"></div>
+<section class="flex flex-col items-center justify-center px-6 md:px-12 py-16 md:py-24 relative overflow-hidden wavy-texture" style="background-color: var(--yellow); min-height: 500px;">
+  <!-- Decorative food SVGs -->
+  <%= image_tag "taco.svg", class: "absolute opacity-40 pointer-events-none", style: "width: 140px; left: 5%; top: 20%; transform: rotate(-15deg);" %>
+  <%= image_tag "burrito.svg", class: "absolute opacity-35 pointer-events-none", style: "width: 120px; right: 5%; top: 25%; transform: rotate(10deg);" %>
+  <%= image_tag "nachos.svg", class: "absolute opacity-30 pointer-events-none", style: "width: 110px; left: 12%; bottom: 15%; transform: rotate(-8deg);" %>
+  <%= image_tag "taco.svg", class: "absolute opacity-25 pointer-events-none", style: "width: 100px; right: 12%; bottom: 20%; transform: rotate(20deg);" %>
+
+  <!-- Centered text content -->
+  <div class="max-w-2xl text-center z-10">
+    <div class="w-16 h-1 rounded mb-6 mx-auto" style="background: var(--deep-red);"></div>
     <p class="text-sm font-medium uppercase tracking-[0.15em] mb-4" style="color: var(--deep-red);">Clover, South Carolina — Family Owned</p>
     <h1 class="text-4xl md:text-6xl font-bold leading-tight tracking-tight" style="color: var(--navy); font-family: 'Lilita One', cursive;"><%= @hero_heading %></h1>
     <p class="text-base md:text-lg mt-5 leading-relaxed" style="color: var(--brown);"><%= @hero_subheading %></p>
-    <p class="text-sm md:text-base mt-4 leading-relaxed" style="color: rgba(121,85,72,0.8);">
+    <p class="text-sm md:text-base mt-4 leading-relaxed max-w-lg mx-auto" style="color: rgba(121,85,72,0.8);">
       From sizzling street tacos to hearty burritos loaded with your favorite fillings, every dish is made fresh with authentic Mexican recipes and the finest ingredients.
     </p>
-    <div class="flex flex-col sm:flex-row gap-4 mt-8">
+    <div class="flex flex-col sm:flex-row gap-4 mt-8 justify-center">
       <a href="/menu" class="text-sm font-semibold text-white px-9 py-3.5 rounded-full hover:opacity-90" style="background: var(--deep-red);">ORDER NOW →</a>
       <a href="tel:<%= @phone&.gsub(/[^0-9]/, '') %>" class="text-sm font-semibold px-9 py-3.5 rounded-full border-2 hover:opacity-80" style="color: var(--navy); border-color: var(--navy);">Call to Order</a>
-    </div>
-  </div>
-
-  <!-- Right side: food illustration placeholder -->
-  <div class="flex-1 flex items-center justify-center z-10">
-    <div class="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center" style="background: rgba(26,35,126,0.08); border: 3px dashed rgba(26,35,126,0.15);">
-      <div class="text-center">
-        <span class="text-7xl md:text-8xl">🌮</span>
-        <p class="text-xs mt-3 uppercase tracking-wider font-medium" style="color: rgba(26,35,126,0.35);">Fresh Mexican Food</p>
-      </div>
     </div>
   </div>
 
@@ -53,14 +49,12 @@
 
 <!-- Signature Favorites -->
 <% if @featured_deals.any? || @featured_items.any? %>
-<section class="px-6 md:px-12 py-16 md:py-20" style="background: var(--off-white);">
-  <p class="text-xs font-medium uppercase tracking-[0.15em] text-center mb-2" style="color: var(--deep-red);">From Our Kitchen</p>
-  <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 tracking-tight" style="color: var(--navy); font-family: 'Lilita One', cursive;">Signature Favorites</h2>
+<section class="px-6 md:px-12 pt-16 pb-16 md:pb-20 relative" style="background: var(--off-white); margin-top: -70px; z-index: 10;">
   <div class="grid grid-cols-1 md:grid-cols-3 gap-7 max-w-6xl mx-auto">
     <%# Show meal deals first, then individual featured items to fill remaining slots %>
     <% @featured_deals.each do |deal| %>
       <% deal_photo = FoodPhotos.for(deal.main_item.name) %>
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+      <div class="bg-white rounded-t-2xl rounded-b-2xl overflow-hidden shadow-sm">
         <div class="h-48 flex items-center justify-center relative" style="background: linear-gradient(135deg, var(--orange), var(--deep-red));">
           <% if deal_photo %>
             <%= image_tag deal_photo, class: "w-full h-full object-cover" %>
@@ -83,7 +77,7 @@
     <% remaining = 3 - @featured_deals.size %>
     <% @featured_items.first(remaining).each do |item| %>
       <% item_photo = FoodPhotos.for(item.name) %>
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+      <div class="bg-white rounded-t-2xl rounded-b-2xl overflow-hidden shadow-sm">
         <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, var(--orange), var(--deep-red));">
           <% if item_photo %>
             <%= image_tag item_photo, class: "w-full h-full object-cover" %>
@@ -110,8 +104,12 @@
       <h2 class="text-3xl md:text-4xl font-bold leading-tight tracking-tight mb-5" style="color: var(--navy); font-family: 'Lilita One', cursive;"><%= @about_heading %></h2>
       <p class="text-base leading-relaxed" style="color: var(--brown);"><%= @about_body %></p>
     </div>
-    <div class="flex-1 max-w-sm h-72 rounded-2xl overflow-hidden">
-      <%= image_tag @storefront_image, alt: "El Mexicano Restaurant storefront", class: "w-full h-full object-cover rounded-2xl" %>
+    <div class="flex-1 max-w-sm h-72 rounded-2xl overflow-hidden flex items-center justify-center" style="background: linear-gradient(135deg, #FDD835, #A10035);">
+      <div class="text-center">
+        <%= image_tag "cactus.svg", class: "mx-auto mb-3 opacity-50", style: "width: 60px;" %>
+        <p class="text-2xl font-bold text-white" style="font-family: 'Lilita One', cursive;">El Mexicano</p>
+        <p class="text-xs text-white opacity-60 mt-1 uppercase tracking-wider">Clover, SC</p>
+      </div>
     </div>
   </div>
 </section>
@@ -237,7 +235,7 @@
     <div>
       <h3 class="text-xs font-semibold uppercase tracking-[0.1em] mb-5" style="color: var(--yellow);">Find Us</h3>
       <div class="aspect-square rounded-2xl overflow-hidden">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3265.123456789!2d-81.19!3d35.15!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xChIJeTI3VEvsVogR39K1AcGkr2Y!2sEl%20Mexicano!5e0!3m2!1sen!2sus!4v1" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3268.5!2d-81.1935!3d35.1128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xChIJeTI3VEvsVogR39K1AcGkr2Y!2sEl+Mexicano!5e0!3m2!1sen!2sus!4v1" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   </div>

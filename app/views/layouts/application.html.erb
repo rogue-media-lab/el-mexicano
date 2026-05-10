@@ -22,12 +22,12 @@
       --off-white: #FFF8E1;
       --white: #FFFFFF;
     }
-    body { font-family: 'Nunito', system-ui, sans-serif; color: var(--brown); background: #0D1547; }
+    body { font-family: 'Nunito', system-ui, sans-serif; color: var(--brown); background: #7A0028; }
     h1, h2, h3, h4 { font-family: 'Lilita One', cursive; }
 
     /* Navy outer frame */
     .navy-frame {
-      background: #1A237E;
+      background: #A10035;
       border-radius: 20px;
       margin: 15px;
       padding: 25px;
@@ -48,7 +48,7 @@
       align-items: flex-start;
       overflow: hidden;
       height: 22px;
-      background: #1A237E;
+      background: #A10035;
       padding-top: 0;
     }
     .papel-picado-banner .pennant {
@@ -73,8 +73,8 @@
       width: 100%;
       height: 14px;
       background:
-        linear-gradient(135deg, var(--deep-red) 33.33%, transparent 33.33%) 0 0 / 14px 14px,
-        linear-gradient(225deg, var(--deep-red) 33.33%, transparent 33.33%) 7px 0 / 14px 14px;
+        linear-gradient(135deg, var(--yellow) 33.33%, transparent 33.33%) 0 0 / 14px 14px,
+        linear-gradient(225deg, var(--yellow) 33.33%, transparent 33.33%) 7px 0 / 14px 14px;
       background-repeat: repeat-x;
       background-position: top left;
     }
@@ -92,15 +92,15 @@
       width: 100%;
       height: 20px;
       background:
-        linear-gradient(135deg, var(--deep-red) 33.33%, transparent 33.33%) 0 0 / 20px 20px,
-        linear-gradient(225deg, var(--deep-red) 33.33%, transparent 33.33%) 0 0 / 20px 20px;
+        linear-gradient(135deg, var(--yellow) 33.33%, transparent 33.33%) 0 0 / 20px 20px,
+        linear-gradient(225deg, var(--yellow) 33.33%, transparent 33.33%) 0 0 / 20px 20px;
       background-position: top left;
       background-repeat: repeat-x;
     }
     .papel-picado-multi::after {
       background:
-        linear-gradient(135deg, var(--deep-red) 33.33%, transparent 33.33%) 0 0 / 16px 16px,
-        linear-gradient(225deg, var(--yellow) 33.33%, transparent 33.33%) 8px 0 / 16px 16px,
+        linear-gradient(135deg, var(--yellow) 33.33%, transparent 33.33%) 0 0 / 16px 16px,
+        linear-gradient(225deg, #FFFFFF 33.33%, transparent 33.33%) 8px 0 / 16px 16px,
         linear-gradient(135deg, var(--green) 33.33%, transparent 33.33%) 0 0 / 16px 16px,
         linear-gradient(225deg, var(--orange) 33.33%, transparent 33.33%) 8px 0 / 16px 16px;
       background-repeat: repeat-x;
@@ -130,7 +130,7 @@
       left: 0;
       width: 100%;
       height: 30px;
-      border-bottom: 2px dashed rgba(26,35,126,0.3);
+      border-bottom: 2px dashed rgba(255,255,255,0.3);
       border-radius: 0 0 50% 50%;
     }
     .bunting-flag {
@@ -168,7 +168,7 @@
     <!-- Papel picado banner at very top -->
     <div class="papel-picado-banner">
       <% 100.times do |i| %>
-        <div class="pennant" style="border-top-color: <%= ['#A10035','#FDD835','#66BB6A','#FBC02D','#1A237E'][i % 5] %>;"></div>
+        <div class="pennant" style="border-top-color: <%= ['#FDD835','#FFFFFF','#66BB6A','#FBC02D','#F48FB1'][i % 5] %>;"></div>
       <% end %>
     </div>
     <!-- Teeth border below papel picado -->
@@ -237,7 +237,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="px-6 md:px-12 py-10" style="background: var(--navy);">
+    <footer class="px-6 md:px-12 py-10 mt-10" style="background: #5A001B;">
       <div class="max-w-6xl mx-auto">
         <div class="flex flex-col md:flex-row justify-between gap-8">
           <!-- Brand + Address -->
