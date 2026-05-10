@@ -1,0 +1,49 @@
+<%# Papel picado banner at very top %>
+<div class="papel-picado-banner">
+  <% 100.times do |i| %>
+    <div class="pennant" style="border-top-color: <%= ['#FDD835','#FFFFFF','#66BB6A','#FBC02D','#F48FB1'][i % 5] %>;"></div>
+  <% end %>
+</div>
+<%# Teeth border below papel picado %>
+<div class="teeth-border"></div>
+
+<%# Nav %>
+<nav class="flex items-center justify-between px-6 md:px-12 py-5 bg-cream">
+  <a href="/" class="text-xl font-bold font-display text-deep-red">El Mexicano</a>
+  <div class="hidden md:flex items-center gap-8">
+    <a href="/" class="text-sm font-medium uppercase tracking-wide text-brown hover:opacity-80">Home</a>
+    <a href="/menu" class="text-sm font-medium uppercase tracking-wide text-brown hover:opacity-80">Menu</a>
+    <a href="/about" class="text-sm font-medium uppercase tracking-wide text-brown hover:opacity-80">About</a>
+    <a href="/contact" class="text-sm font-medium uppercase tracking-wide text-brown hover:opacity-80">Contact</a>
+    <a href="/reservations/new" class="text-sm font-medium uppercase tracking-wide text-brown hover:opacity-80">Reservations</a>
+    <a href="/cart" class="text-sm font-medium uppercase tracking-wide text-brown hover:opacity-80 relative">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <% cart = Cart.new(session); unless cart.empty? %>
+        <span class="absolute -top-2 -right-4 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center bg-deep-red"><%= cart.count %></span>
+      <% end %>
+    </a>
+    <a href="/menu" class="text-sm font-semibold text-white px-6 py-2.5 rounded-full bg-deep-red hover:opacity-90">Order Now</a>
+  </div>
+  <%# Mobile: cart + hamburger %>
+  <div class="md:hidden flex items-center gap-3">
+    <a href="/cart" class="relative text-brown">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+      <% cart = Cart.new(session); unless cart.empty? %>
+        <span class="absolute -top-2 -right-2 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center bg-deep-red"><%= cart.count %></span>
+      <% end %>
+    </a>
+    <button onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" class="text-brown">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<%# Mobile nav %>
+<div id="mobile-nav" class="hidden md:hidden px-6 pb-4 bg-cream border-b border-deep-red/15">
+  <a href="/" class="block py-2 text-sm font-medium uppercase tracking-wide text-brown">Home</a>
+  <a href="/menu" class="block py-2 text-sm font-medium uppercase tracking-wide text-brown">Menu</a>
+  <a href="/about" class="block py-2 text-sm font-medium uppercase tracking-wide text-brown">About</a>
+  <a href="/contact" class="block py-2 text-sm font-medium uppercase tracking-wide text-brown">Contact</a>
+  <a href="/reservations/new" class="block py-2 text-sm font-medium uppercase tracking-wide text-brown">Reservations</a>
+  <a href="/menu" class="block mt-2 text-sm font-semibold text-white px-6 py-2.5 rounded-full text-center bg-deep-red">Order Now</a>
+</div>

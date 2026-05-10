@@ -1,0 +1,26 @@
+<%# Menu Preview %>
+<section class="px-6 md:px-12 py-16 md:py-20 bg-navy">
+  <p class="text-xs font-medium uppercase tracking-[0.15em] text-center mb-2 text-gold">What We Serve</p>
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 tracking-tight text-white font-display">Our Menu</h2>
+  <p class="text-base text-center max-w-lg mx-auto mb-12 text-white/60">Authentic Mexican favorites — fresh ingredients, bold flavors, and generous portions at honest prices.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+    <% @categories.limit(3).each do |cat| %>
+      <div>
+        <h3 class="text-lg font-bold pb-3 mb-5 text-gold border-b border-gold/30 font-display"><%= cat.name %></h3>
+        <div class="space-y-3.5">
+          <% cat.menu_items.active.limit(7).each do |item| %>
+            <div class="flex justify-between items-baseline">
+              <span class="text-sm font-medium text-white"><%= item.name %></span>
+              <span class="text-sm text-white/50"><%= item.formatted_price %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-10">
+    <a href="/menu" class="text-sm font-medium uppercase tracking-wider pb-0.5 text-gold border-b border-gold hover:opacity-80">View Full Menu →</a>
+  </div>
+</section>

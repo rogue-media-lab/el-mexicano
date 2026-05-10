@@ -9,12 +9,8 @@
   <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
-  <style>
-    body { font-family: 'Nunito', system-ui, sans-serif; }
-    h1, h2, h3 { font-family: 'Lilita One', cursive; }
-  </style>
 </head>
-<body>
+<body class="font-body">
   <% if notice.present? %>
     <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 p-4 bg-green-50 border border-green-200 text-green-800 rounded-lg text-sm shadow-lg"><%= notice %></div>
   <% end %>

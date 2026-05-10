@@ -5,16 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
   <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
 </head>
-<body class="bg-gray-100 text-gray-900 min-h-screen">
+<body class="bg-gray-100 text-gray-900 min-h-screen font-body">
   <div class="flex min-h-screen">
-    <!-- Sidebar -->
+    <%# Sidebar %>
     <aside class="w-64 bg-gray-900 text-gray-100 flex-shrink-0 flex flex-col">
       <div class="p-6 border-b border-gray-700">
-        <h1 class="text-lg font-bold" style="color: #A10035;">El Mexicano</h1>
+        <h1 class="text-lg font-bold font-display text-deep-red">El Mexicano</h1>
         <p class="text-xs text-gray-400 mt-1">Admin Dashboard</p>
       </div>
       <nav class="flex-1 p-4 space-y-1">
@@ -55,7 +56,7 @@
       </div>
     </aside>
 
-    <!-- Main Content -->
+    <%# Main Content %>
     <main class="flex-1 p-8 overflow-y-auto">
       <% if notice.present? %>
         <div data-controller="toast" class="fixed top-20 right-4 z-50 max-w-sm bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 text-sm shadow-lg" style="transform:translateX(120%);opacity:0">

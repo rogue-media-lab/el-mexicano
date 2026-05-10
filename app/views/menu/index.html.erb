@@ -1,24 +1,24 @@
-<section class="px-6 md:px-12 py-16 md:py-20 bg-[#3D2B1F] min-h-screen">
-  <p class="text-xs font-medium text-[#C9A96E] uppercase tracking-[0.15em] text-center mb-2">What We Serve</p>
-  <h1 class="text-3xl md:text-5xl font-bold text-[#FAF3E8] text-center mb-4 tracking-tight">Our Menu</h1>
-  <p class="text-base text-[#FAF3E8]/60 text-center max-w-lg mx-auto mb-16">Generous portions, honest prices, and flavors that keep you coming back.</p>
+<section class="px-6 md:px-12 py-16 md:py-20 bg-navy min-h-screen">
+  <p class="text-xs font-medium text-gold uppercase tracking-[0.15em] text-center mb-2">What We Serve</p>
+  <h1 class="text-3xl md:text-5xl font-bold text-white text-center mb-4 tracking-tight font-display">Our Menu</h1>
+  <p class="text-base text-white/60 text-center max-w-lg mx-auto mb-16">Generous portions, honest prices, and flavors that keep you coming back.</p>
 
   <% @categories.each do |cat| %>
     <div class="max-w-5xl mx-auto mb-16">
-      <h2 class="text-2xl font-bold text-[#C9A96E] pb-3 border-b border-[#C9A96E]/30 mb-8"><%= cat.name %></h2>
+      <h2 class="text-2xl font-bold text-gold pb-3 border-b border-gold/30 mb-8 font-display"><%= cat.name %></h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-5">
         <% cat.menu_items.active.ordered.each do |item| %>
           <div class="flex items-start justify-between gap-4">
             <div class="flex-1">
               <div class="flex justify-between items-baseline gap-4">
-                <span class="font-medium text-[#FAF3E8]"><%= item.name %></span>
-                <span class="text-sm text-[#FAF3E8]/50 flex-shrink-0"><%= item.formatted_price %></span>
+                <span class="font-medium text-white"><%= item.name %></span>
+                <span class="text-sm text-white/50 flex-shrink-0"><%= item.formatted_price %></span>
               </div>
               <% if item.description.present? %>
-                <p class="text-sm text-[#FAF3E8]/40 mt-1 leading-relaxed"><%= item.description %></p>
+                <p class="text-sm text-white/40 mt-1 leading-relaxed"><%= item.description %></p>
               <% end %>
             </div>
-            <%= button_to "+", cart_add_path(menu_item_id: item.id), method: :post, class: "text-xs font-bold text-[#C9A96E] border border-[#C9A96E]/40 rounded w-7 h-7 flex items-center justify-center hover:bg-[#C9A96E]/10 cursor-pointer bg-transparent flex-shrink-0 mt-0.5" %>
+            <%= button_to "+", cart_add_path(menu_item_id: item.id), method: :post, class: "text-xs font-bold text-gold border border-gold/40 rounded w-7 h-7 flex items-center justify-center hover:bg-gold/10 cursor-pointer bg-transparent flex-shrink-0 mt-0.5" %>
           </div>
         <% end %>
       </div>

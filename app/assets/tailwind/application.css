@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --color-gold: #FDD835;
+  --color-deep-red: #A10035;
+  --color-navy: #1A237E;
+  --color-green: #66BB6A;
+  --color-orange: #FBC02D;
+  --color-brown: #795548;
+  --color-cream: #FFF8E1;
+  --color-dark-red-bg: #5A001B;
+
+  --font-display: 'Lilita One', cursive;
+  --font-body: 'Nunito', sans-serif;
+}
