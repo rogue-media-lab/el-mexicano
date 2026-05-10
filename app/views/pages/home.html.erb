@@ -35,7 +35,7 @@
 
 <!-- Signature Favorites -->
 <% if @featured_deals.any? || @featured_items.any? %>
-<section class="px-6 md:px-12 pb-16 md:pb-20 relative" style="background: var(--navy);">
+<section class="px-6 md:px-12 pt-12 pb-24 md:pb-32 relative" style="background: var(--navy);">
   <div class="grid grid-cols-1 md:grid-cols-3 gap-7 max-w-6xl mx-auto">
     <%# Show meal deals first, then individual featured items to fill remaining slots %>
     <% @featured_deals.each do |deal| %>
